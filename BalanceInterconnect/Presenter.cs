@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using xNet.Net;
+using System.Threading.Tasks;
 using System.Threading;
 
 namespace BalanceInterconnect
@@ -12,6 +13,8 @@ namespace BalanceInterconnect
         IView _view;
         IManager _manager;
         string user, pass;
+
+        Task threadConnect;
         public Presenter(IView view, IManager manager)
         {
             _view = view;
@@ -58,7 +61,7 @@ namespace BalanceInterconnect
             }
             catch (HttpException err)
             {
-             //   _view.MessageBalloon("Ошибка подключения", "Вход не выполнен");
+                StartTaskConnect();
             }
             catch (NullReferenceException err)
             {
@@ -75,10 +78,15 @@ namespace BalanceInterconnect
             user = e.UserName;
             pass = e.Password;
 
-            new Thread(Conncect).Start();
-            
-        }
+            StartTaskConnect();
+         }
 
+
+        private void StartTaskConnect()
+        {
+            threadConnect = new Task(Conncect);
+            threadConnect.Start();
+        }
         private void _viewChangetWindowStart(object sender, ChangedWindowStartEventArgs e)
         {
             if (e.WinStart)
