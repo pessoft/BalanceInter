@@ -17,7 +17,12 @@ namespace BalanceInterconnect
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new FormMain());
+            FormMain view = new FormMain();
+            IManager manager = new ManagerApp();
+
+            new Presenter(view, manager);
+
+            Application.Run(view);
         }
     }
 }

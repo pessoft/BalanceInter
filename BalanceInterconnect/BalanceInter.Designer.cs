@@ -53,10 +53,10 @@
             this.txtUserName.Size = new System.Drawing.Size(151, 23);
             this.txtUserName.TabIndex = 1;
             this.txtUserName.Text = "Имя пользователя";
-            this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
             // 
             // btnLogin
             // 
+            this.btnLogin.Enabled = false;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLogin.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnLogin.Location = new System.Drawing.Point(90, 125);
@@ -65,7 +65,6 @@
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "Войти";
             this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogun_Click);
             // 
             // txtPassword
             // 
@@ -76,7 +75,6 @@
             this.txtPassword.Size = new System.Drawing.Size(151, 23);
             this.txtPassword.TabIndex = 2;
             this.txtPassword.Text = "Пароль";
-            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // notifyIcon
             // 
@@ -85,6 +83,7 @@
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Visible = true;
+            this.notifyIcon.DoubleClick += new System.EventHandler(this.ShowFromNotify);
             // 
             // contextMenuStrip
             // 
@@ -99,19 +98,19 @@
             this.userDateToolStripMenuItem.Name = "userDateToolStripMenuItem";
             this.userDateToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.userDateToolStripMenuItem.Text = "Изменить логин и пароль";
-            this.userDateToolStripMenuItem.Click += new System.EventHandler(this.userDateToolStripMenuItem_Click);
+            this.userDateToolStripMenuItem.Click += new System.EventHandler(this.ShowFromNotify);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.exitToolStripMenuItem.Text = "Выход";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItemClick);
             // 
             // timer
             // 
-            this.timer.Interval = 30000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timerTick);
             // 
             // checkBoxRemember
             // 
@@ -123,6 +122,7 @@
             this.checkBoxRemember.TabIndex = 4;
             this.checkBoxRemember.Text = "Запомнить";
             this.checkBoxRemember.UseVisualStyleBackColor = true;
+            this.checkBoxRemember.CheckedChanged += new System.EventHandler(this.checkBoxRememberCheckedChanged);
             // 
             // checkBoxStartWindows
             // 
@@ -130,7 +130,7 @@
             this.checkBoxStartWindows.Location = new System.Drawing.Point(35, 75);
             this.checkBoxStartWindows.Name = "checkBoxStartWindows";
             this.checkBoxStartWindows.Size = new System.Drawing.Size(128, 19);
-            this.checkBoxStartWindows.TabIndex = 5;
+            this.checkBoxStartWindows.TabIndex = 3;
             this.checkBoxStartWindows.Text = "Запуск с Windows";
             this.checkBoxStartWindows.UseVisualStyleBackColor = true;
             // 
@@ -147,12 +147,9 @@
             this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Интерконнект баланс";
-            this.Load += new System.EventHandler(this.FormMain_Load);
-            this.Shown += new System.EventHandler(this.FormMain_Shown);
+            this.Text = "Интерконнект";
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

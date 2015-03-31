@@ -4,18 +4,23 @@ using xNet.Text;
 
 namespace BalanceInterconnect
 {
-    public class Login
+    public class Login :Ilogin
     {
         private string _username, _password;
+        private double balance;
+
         public Login(string username, string password)
         {
-            _username = username;
-            _password = password;
+            SetUserData(username, password);
         }
 
-        public double GetBalance()
+        public Func<double> Connect()
         {
-            double balance = 0;
+
+            if (string.IsNullOrEmpty(_username) || string.IsNullOrEmpty(_password))
+                throw new LoginException();
+
+            balance = 0;
                    
             using (var request = new HttpRequest())
             {
@@ -38,7 +43,23 @@ namespace BalanceInterconnect
                 Double.TryParse(strBalanse, out balance);
                 
             }
-            return balance;
+            return ()=> { return balance; };
+        }
+
+        public void SetUserData(string username, string password)
+        {
+            _username = username;
+            _password = password;
+        }
+
+        public string GetUserName()
+        {
+            return _username;
+        }
+
+        public string GetPassword()
+        {
+            return _password;
         }
     }
 }
