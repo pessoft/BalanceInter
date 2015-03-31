@@ -11,7 +11,8 @@ namespace BalanceInterconnect
 
         public Login(string username, string password)
         {
-            SetUserData(username, password);
+            _username = username;
+            _password = password;
         }
 
         public double Connect()
@@ -49,12 +50,6 @@ namespace BalanceInterconnect
                 
             }
             return balance;
-        }
-
-        public void SetUserData(string username, string password)
-        {
-            _username = username;
-            _password = password;
         }
 
         public string GetUserName()

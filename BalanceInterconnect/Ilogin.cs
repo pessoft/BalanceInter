@@ -8,7 +8,6 @@ namespace BalanceInterconnect
     public interface Ilogin
     {
         double Connect();
-        void SetUserData(string username, string password);
         string GetPassword();
         string GetUserName();
     }
