@@ -93,11 +93,7 @@ namespace BalanceInterconnect
                     LoadWindow(this, e);
                 if (Entrance != null && placeholder.GetPlaceholder(txtPassword) != txtPassword.Text &&
                      placeholder.GetPlaceholder(txtUserName) != txtUserName.Text)
-                {
                     Entrance(this, new EntranceEventArgs(UserName, Password));
-                    timer.Start();
-                }
-                
             }
             checkBoxRemember.Focus();
         }
@@ -190,6 +186,16 @@ namespace BalanceInterconnect
             }
             else
                 timer.Start();
+        }
+
+        public void StopTimer()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((Action)(() => timer.Stop()));
+            }
+            else
+                timer.Stop();
         }
 
         private void CheckBoxRememberCheckedChanged(object sender, EventArgs e)

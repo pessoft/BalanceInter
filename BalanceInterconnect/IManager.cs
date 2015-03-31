@@ -18,5 +18,7 @@ namespace BalanceInterconnect
         void AddRegister();
         void RemoveRegister();
         void RemoveUserData();
+        void RememberUserData();
+        void RememberUserData(string username, string password);
     }
 }

@@ -30,6 +30,7 @@ namespace BalanceInterconnect
         }
 
         void StartTimer();
+        void StopTimer();
         void SetNotifyText(string text);
         event EventHandler<EntranceEventArgs> Entrance;
         event EventHandler<ChangedWindowStartEventArgs> ChangetWindowStart;

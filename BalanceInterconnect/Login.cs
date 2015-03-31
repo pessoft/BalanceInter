@@ -14,14 +14,14 @@ namespace BalanceInterconnect
             SetUserData(username, password);
         }
 
-        public Func<double> Connect()
+        public double Connect()
         {
 
             if (string.IsNullOrEmpty(_username) || string.IsNullOrEmpty(_password))
                 throw new LoginException();
 
             balance = 0;
-                   
+            String content;
             using (var request = new HttpRequest())
             {
                 request.UserAgent = HttpHelper.ChromeUserAgent();
@@ -29,9 +29,14 @@ namespace BalanceInterconnect
 
                 request.AddField("username", _username);
                 request.AddField("password", _password);
-
-                String content = request.Post("http://stat.interkonekt.ru").ToString();
-
+                try
+                {
+                    content = request.Post("http://stat.interkonekt.ru").ToString();
+                }
+                catch (HttpException err)
+                {
+                    throw;
+                }
                 if (content.IndexOf("class=\"errors\"") != -1)
                     throw new LoginException();
                 if (content.IndexOf("Ошибка авторизации. Не верная пара логин-пароль") != -1)
@@ -43,7 +48,7 @@ namespace BalanceInterconnect
                 Double.TryParse(strBalanse, out balance);
                 
             }
-            return ()=> { return balance; };
+            return balance;
         }
 
         public void SetUserData(string username, string password)

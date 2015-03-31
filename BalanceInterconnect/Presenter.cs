@@ -58,25 +58,30 @@ namespace BalanceInterconnect
             try
             {
                 _manager.UpdateBalance();
+                
             }
             catch (HttpException err)
             {
+                
+                _view.StopTimer();
                 StartTaskConnect();
             }
             catch (NullReferenceException err)
             {
-               // _view.MessageBalloon("Ошибка подключения", "Вход не выполнен");
+                
+                // _view.MessageBalloon("Ошибка подключения", "Вход не выполнен");
             }
         }
 
         private void _viewEntrance(object sender, EntranceEventArgs e)
         {
             _view.Hide();
-            _manager.Remember = _view.Remember;
-            UserDateRemOrAdd();
 
             user = e.UserName;
             pass = e.Password;
+
+            _manager.Remember = _view.Remember;
+            UserDateRemOrAdd();
 
             StartTaskConnect();
          }
@@ -140,7 +145,7 @@ namespace BalanceInterconnect
             if (!_manager.Remember)
                 _manager.RemoveUserData();
             else
-                _manager.RemoveUserData();
+                _manager.RememberUserData(user, pass);
         }
     }
 }
